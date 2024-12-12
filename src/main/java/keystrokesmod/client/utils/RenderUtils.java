@@ -4,6 +4,16 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.reflect.Method;
+
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
 
@@ -41,6 +51,40 @@ public class RenderUtils {
                         width * scale,
                         (height + y) * scale);
 
+    }
+    public static void stopDrawing() {
+        GL11.glDisable(3042);
+        GL11.glEnable(3553);
+        GL11.glDisable(2848);
+        GL11.glDisable(3042);
+        GL11.glEnable(2929);
+    }
+
+
+    public static void startDrawing() {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glEnable(GL11.GL_LINE_SMOOTH);
+        GL11.glDisable(GL11.GL_TEXTURE_2D);
+        GL11.glDisable(GL11.GL_DEPTH_TEST);
+
+        try {
+            Method m = ReflectionHelper.findMethod(
+                    EntityRenderer.class,
+                    Minecraft.getMinecraft().entityRenderer,
+                    new String[]{
+                            "func_78479_a",
+                            "setupCameraTransform"
+                    },
+                    float.class, int.class
+            );
+
+            m.setAccessible(true);
+            m.invoke(Minecraft.getMinecraft().entityRenderer, Utils.Client.getTimer().renderPartialTicks, 0);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
 
     public static void drawBorderedRect(float f, float f1, float f2, float f3, float f4, int i, int j) {

@@ -9,6 +9,17 @@ import keystrokesmod.client.module.setting.impl.DescriptionSetting;
 import keystrokesmod.client.module.setting.impl.SliderSetting;
 import keystrokesmod.client.module.setting.impl.TickSetting;
 import keystrokesmod.client.utils.Utils;
+import keystrokesmod.client.main.Raven;
+import keystrokesmod.client.module.*;
+import keystrokesmod.client.module.setting.impl.DescriptionSetting;
+import keystrokesmod.client.module.setting.impl.SliderSetting;
+import keystrokesmod.client.module.setting.impl.TickSetting;
+import keystrokesmod.client.utils.Utils;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+
+//Credit - Mortex for rewriting
 
 public class BridgeAssist extends Module {
     private final TickSetting setLook;
@@ -55,8 +66,8 @@ public class BridgeAssist extends Module {
         super.onEnable();
     }
 
-    @Subscribe
-    public void onRenderTick(Render2DEvent e) {
+    @SubscribeEvent
+    public void onRenderTick(TickEvent.RenderTickEvent e) {
         if (!Utils.Player.isPlayerInGame()) {
             return;
         }
@@ -192,9 +203,9 @@ public class BridgeAssist extends Module {
     }
 
     public void aimAt(float pitch, float yaw, float fuckedYaw, float fuckedPitch){
-       if(setLook.isToggled()) {
-               mc.thePlayer.rotationPitch = pitch + ((int)fuckedPitch/360) * 360;
-               mc.thePlayer.rotationYaw = yaw;
+        if(setLook.isToggled()) {
+            mc.thePlayer.rotationPitch = pitch + ((int)fuckedPitch/360) * 360;
+            mc.thePlayer.rotationYaw = yaw;
         }
     }
 }
