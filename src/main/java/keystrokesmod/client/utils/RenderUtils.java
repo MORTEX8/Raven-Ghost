@@ -4,16 +4,6 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
-import java.lang.reflect.Method;
-
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.EntityRenderer;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
-import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import org.lwjgl.opengl.GL11;
 
 import javax.imageio.ImageIO;
 
@@ -26,6 +16,17 @@ import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.DynamicTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.EntityRenderer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import org.lwjgl.opengl.GL11;
+
+import java.awt.*;
+import java.lang.reflect.Method;
 
 public class RenderUtils {
 
@@ -39,18 +40,7 @@ public class RenderUtils {
         color1.getColorComponents(afloat1);
 
         return new Color((afloat[0] * f) + (afloat1[0] * f1), (afloat[1] * f) + (afloat1[1] * f1),
-                        (afloat[2] * f) + (afloat1[2] * f1));
-    }
-
-
-    public static void glScissor(int x, int y, int width, int height) {
-        int scale = new ScaledResolution(Raven.mc).getScaleFactor();
-        GL11.glScissor(
-                        x * scale,
-                        (Raven.mc.displayHeight - ((((y/height) + height)) * scale)),
-                        width * scale,
-                        (height + y) * scale);
-
+                (afloat[2] * f) + (afloat1[2] * f1));
     }
     public static void stopDrawing() {
         GL11.glDisable(3042);
@@ -59,7 +49,6 @@ public class RenderUtils {
         GL11.glDisable(3042);
         GL11.glEnable(2929);
     }
-
 
     public static void startDrawing() {
         GL11.glEnable(GL11.GL_BLEND);
@@ -85,6 +74,16 @@ public class RenderUtils {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+    }
+
+    public static void glScissor(int x, int y, int width, int height) {
+        int scale = new ScaledResolution(Raven.mc).getScaleFactor();
+        GL11.glScissor(
+                x * scale,
+                (Raven.mc.displayHeight - ((((y/height) + height)) * scale)),
+                width * scale,
+                (height + y) * scale);
+
     }
 
     public static void drawBorderedRect(float f, float f1, float f2, float f3, float f4, int i, int j) {

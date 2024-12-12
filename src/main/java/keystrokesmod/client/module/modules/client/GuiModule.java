@@ -65,7 +65,7 @@ public class GuiModule extends Module {
         return (Preset) preset.getMode();
     }
 
-    // sgimas going to tell me theres a better way to do this isnt he
+    //poopies way to do it ik
 
     public static boolean isCategoryBackgroundToggled() {
         return getPresetMode().categoryBackground;

@@ -28,12 +28,8 @@ import net.minecraft.network.play.server.S08PacketPlayerPosLook;
 import net.minecraft.world.WorldSettings.GameType;
 import net.minecraftforge.client.event.RenderWorldLastEvent;
 
-/**
- * WHO MADE THIS AND WHY PLEASE WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHY WHYW
- */
 
 // todo smoother rotations when exiting range
-// uh there was one other thing as well
 public class KillAura extends Module {
 
     private EntityPlayer target;
@@ -211,3 +207,5 @@ public class KillAura extends Module {
     }
 
 }
+
+//there was a way better way to do all this, i know.
